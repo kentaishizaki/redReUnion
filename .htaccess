@@ -1,0 +1,42 @@
+DirectoryIndex index.php
+Options -Indexes
+AuthUserFile /home/k-ishizaki/www/.htpasswd
+AuthType Basic
+AuthName "Web access"
+Satisfy all
+Order deny,allow
+
+AddDefaultCharset utf-8
+
+RewriteEngine on
+
+RewriteCond %{THE_REQUEST} ^.*/index.html
+RewriteRule ^(.*)index.html$ https://red2019april.com/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} .+\.sakura\.ne\.jp
+RewriteRule ^.*$ - [R=404,L]
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+RewriteBase /
+RewriteCond %{REQUEST_URI} !(^/$)
+RewriteCond %{REQUEST_URI} !(^/index.php)
+RewriteCond %{REQUEST_URI} !(^/pass.php)
+RewriteCond %{REQUEST_URI} !(^/home.php)
+RewriteCond %{REQUEST_URI} !(^/join.php)
+RewriteCond %{REQUEST_URI} !(^/sendToAdmin.php)
+RewriteCond %{REQUEST_URI} !(^/registMessage.php)
+RewriteCond %{REQUEST_URI} !(^/registRecentUpdate.php)
+RewriteCond %{REQUEST_URI} !(^/log/noticeUpdate.php)
+RewriteCond %{REQUEST_URI} !(^/log/updates.log)
+RewriteCond %{REQUEST_URI} !(^/css/style.css)
+RewriteCond %{REQUEST_URI} !(^/js/menu.js)
+RewriteCond %{REQUEST_URI} !(^/images/red.png)
+RewriteCond %{REQUEST_URI} !(^/robots\.txt)
+RewriteCond %{REQUEST_URI} !(^/sitemap\.xml)
+RewriteRule ^(.*)$ / [R=301,L]
+
